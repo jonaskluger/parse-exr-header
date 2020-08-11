@@ -2,7 +2,6 @@
 import pytest
 import sys
 import os
-
 """
 The tests work with Python 2 and Python 3.
 Please remember that Python 2 works with byte strings as default
@@ -22,14 +21,14 @@ sys.path.append(
 
 import parse_metadata
 
-EXR_IMAGES_DIR_PATH = os.path.join(
-    os.path.abspath(os.path.dirname(__file__)), 'openexr-images')
+EXR_IMAGES_DIR_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                   'openexr-images')
 
 
 class TestEXRParsing:
 
-    rec709_test_image_path = os.path.join(EXR_IMAGES_DIR_PATH, 'Chromaticities',
-                                          'Rec709.exr')
+    rec709_test_image_path = os.path.join(EXR_IMAGES_DIR_PATH,
+                                          'Chromaticities', 'Rec709.exr')
 
     def test_oserror_thrown_if_file_does_not_exist(self):
 
