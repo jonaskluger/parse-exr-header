@@ -55,7 +55,10 @@ def read_until_null(filebuffer, maxbytes=1024):
 def convert_to_unicode_string(data):
     """Recursively convert dictionary keys and values to unicode strings"""
     if isinstance(data, dict):
-        return {convert_to_unicode_string(k): convert_to_unicode_string(v) for k, v in data.items()}
+        return {
+            convert_to_unicode_string(k): convert_to_unicode_string(v)
+            for k, v in data.items()
+        }
     elif isinstance(data, list):
         return [convert_to_unicode_string(v) for v in data]
     elif isinstance(data, bytes):
@@ -206,8 +209,9 @@ def read_exr_header(exrpath, maxreadsize=2000):
                 compression_value = int(compression_value[0])
 
                 try:
-                    metadata['compression'] = EXR_ATTRIBUTES.COMPRESSION_VALUES[
-                        compression_value]
+                    metadata[
+                        'compression'] = EXR_ATTRIBUTES.COMPRESSION_VALUES[
+                            compression_value]
 
                 except IndexError:
                     metadata['compression'] = 'unknown'
@@ -250,7 +254,8 @@ def read_exr_header(exrpath, maxreadsize=2000):
 
             elif attribute_type == b'lineOrder':
                 line_order = int(struct.unpack('B', exr_file.read(1))[0])
-                metadata[attribute_name] = EXR_ATTRIBUTES.LINE_ORDER[line_order]
+                metadata[attribute_name] = EXR_ATTRIBUTES.LINE_ORDER[
+                    line_order]
 
             elif attribute_type == b'm33f':
                 attribute_values = struct.unpack('f' * 9, exr_file.read(4 * 9))
@@ -295,11 +300,12 @@ def read_exr_header(exrpath, maxreadsize=2000):
 
                 while byte_count < attribute_size:
 
-                    string_length = int(struct.unpack('i', exr_file.read(4))[0])
+                    string_length = int(
+                        struct.unpack('i', exr_file.read(4))[0])
                     byte_count += 4
 
-                    string_content = struct.unpack('c' * string_length,
-                                                   exr_file.read(string_length))
+                    string_content = struct.unpack(
+                        'c' * string_length, exr_file.read(string_length))
                     byte_count += string_length
 
                     # print('string length: {}'.format(string_length))
